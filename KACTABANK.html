@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KACTABANK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2e023a;
+            color: white;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #4a035e;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        header p {
+            margin: 5px 0 20px;
+        }
+
+        .main-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #ff00ff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .main-button:hover {
+            background-color: #e600e6;
+        }
+
+        .cards-section {
+            padding: 40px 20px;
+            background-color: #4a035e;
+            text-align: center;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            color: black;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .card h3 {
+            margin: 15px 0 5px;
+        }
+
+        .card p {
+            margin: 0 10px 15px;
+        }
+
+        .card button {
+            background-color: #ff00ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .card button:hover {
+            background-color: #e600e6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4a035e;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* Форма регистрации */
+        #register-form {
+            display: none;
+            background-color: #4a035e;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #register-form input, #register-form button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        #register-form button {
+            background-color: #ff00ff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #register-form button:hover {
+            background-color: #e600e6;
+        }
+
+        #register-form .back-btn {
+            background-color: #ff0077;
+        }
+    </style>
+    <script>
+        // Функция для перехода к форме регистрации
+        function orderCard(cardType) {
+            document.querySelector('.cards-section').style.display = 'none';  // Скрыть раздел карт
+            document.querySelector('#register-form').style.display = 'block'; // Показать форму регистрации
+
+            // Установить выбранную карту в форму
+            document.getElementById('selected-card').innerText = cardType;
+            document.getElementById('card-type').value = cardType;
+        }
+
+        // Функция для возврата к разделу карт
+        function goBack() {
+            document.querySelector('.cards-section').style.display = 'block'; // Показать раздел карт
+            document.querySelector('#register-form').style.display = 'none';  // Скрыть форму регистрации
+        }
+
+        // Функция для отправки почты
+        function sendEmail(event) {
+            event.preventDefault(); // Остановить отправку формы
+
+            const username = document.getElementById('username').value;
+            const cardType = document.getElementById('card-type').value;
+
+            const emailBody = `Ник в игре: ${username}%0D%0AВыбранная карта: ${cardType}`;
+
+            window.location.href = `mailto:kactabank@gmail.com?subject=Заказ карты&body=${emailBody}`;
+
+            alert('Ваш запрос отправлен! Откроется ваш почтовый клиент.');
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Баннер -->
+    <div class="banner">
+        <img src="images/KACTABANK.gif" alt="Kactabank Banner">
+    </div>
+
+    <!-- Заголовок -->
+    <header>
+        <h1>KACTABANK</h1>
+        <p>Оформите карту и платите по-новому</p>
+        
+
+    <!-- Секция карт -->
+    <div id="cards-section" class="cards-section">
+        <h2>Доступные карты</h2>
+        <div class="cards-container">
+            <!-- Карта: Незеритовая -->
+            <div class="card">
+                <img src="images/netherite.png" alt="Незеритовая карта">
+                <h3>Незеритовая карта</h3>
+                <p>Кредит до 5 стаков алмазов, премиум место в банке, вклад до 15%</p>
+                <button onclick="orderCard('Незеритовая карта')">Заказать</button>
+            </div>
+
+            <!-- Карта: Алмазная -->
+            <div class="card">
+                <img src="images/diamond.png" alt="Алмазная карта">
+                <h3>Алмазная карта</h3>
+                <p>Кредит до 3 стаков алмазов, вклад до 10%</p>
+                <button onclick="orderCard('Алмазная карта')">Заказать</button>
+            </div>
+
+            <!-- Карта: Золотая -->
+            <div class="card">
+                <img src="images/gold.png" alt="Золотая карта">
+                <h3>Золотая карта</h3>
+                <p>Кредит до 1 стака алмазов, вклад до 5%</p>
+                <button onclick="orderCard('Золотая карта')">Заказать</button>
+            </div>
+
+            <!-- Карта: Железная -->
+            <div class="card">
+                <img src="images/iron.png" alt="Железная карта">
+                <h3>Железная карта</h3>
+                <p>Кредит до 32 алмазов, вклад 5%</p>
+                <button onclick="orderCard('Железная карта')">Заказать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма регистрации карты -->
+    <div id="register-form">
+        <h2>Регистрация карты</h2>
+        <p>Вы выбрали: <span id="selected-card"></span></p>
+        <form onsubmit="sendEmail(event)">
+            <input type="text" id="username" name="username" placeholder="Ваш ник в игре" required>
+            <input type="hidden" id="card-type" name="cardType" required>
+            <button type="submit">Отправить заявку</button>
+        </form>
+        <button class="back-btn" onclick="goBack()">Назад</button>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+        <p>© 2024 KACTABANK. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>
